@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ofud.ofud.email.EmailServiceImpl;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
 public class ServicioEstudianteImpl implements ServicioEstudiante{
     private final EstudianteDAO dao;
+    private final EmailServiceImpl emailSender;
 
     @Override
     public Estudiante findEstudianteById(Long id) {
@@ -23,6 +26,7 @@ public class ServicioEstudianteImpl implements ServicioEstudiante{
 
     @Override
     public Estudiante saveEstudiante(Estudiante e) {
+        // emailSender.sendSimpleMessage(e.getCorreoPersonal(), "Resgitro exitoso", null);
         return dao.save(e);
     }
 

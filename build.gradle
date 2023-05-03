@@ -29,6 +29,8 @@ dependencies {
     compileOnly("org.springframework.boot:spring-boot-devtools")
     implementation 'com.oracle.database.jdbc:ojdbc10:19.18.0.0'
 
+    
+    implementation 'org.springframework.boot:spring-boot-starter-mail:3.0.6'
 
     
 }
