@@ -26,7 +26,9 @@ public class ServicioEstudianteImpl implements ServicioEstudiante{
 
     @Override
     public Estudiante saveEstudiante(Estudiante e) {
-        // emailSender.sendSimpleMessage(e.getCorreoPersonal(), "Resgitro exitoso", null);
+        emailSender.sendSimpleMessage(e.getCorreoPersonal(), "Resgitro exitoso", "Se ha realizado su registro exitosamente! :)<3 ");
+        System.out.println("Email enviado correctamente");
+        
         return dao.save(e);
     }
 
