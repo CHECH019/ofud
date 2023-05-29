@@ -1,10 +1,19 @@
 package com.ofud.ofud.estudiante;
 
 import java.time.LocalDate;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ofud.ofud.ConvocatoriaEstudiante.ConvocatoriaEstudiante;
+import com.ofud.ofud.participacionEstudiante.ParticipacionEstudiante;
+import com.ofud.ofud.unidad.Unidad;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,31 +27,36 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Estudiante {
+   
     @Id
-    @Column(nullable = false, length = 11)
-    private long codigo;
+    @Column(name = "CODESTUDIANTE", nullable = false, length = 10)
+    private String codigoEstudiante;
 
-    @Column(nullable = false, length = 30)
+    @ManyToOne
+    @JoinColumn(name = "CODUNIDADFKE", nullable = false)
+    private Unidad unidad;
+
+    @Column(name = "NOMBRE", nullable = false, length = 30)
     private String nombre;
 
-    @Column(nullable = false, length = 30)
+    @Column(name = "APELLIDO", nullable = false, length = 30)
     private String apellido;
-    
-    private LocalDate nacimiento;
 
-    @Column(nullable = false, length = 12)
-    private long documento;
+    @Column(name = "FECHAINSCRIPCION", nullable = false)
+    private LocalDate fechaInscripcion;
 
-    @Column(nullable = false, length = 2)
-    private String tipo;
+    @Column(name = "FECHANACIMIENTO", nullable = false)
+    private LocalDate fechaNacimiento;
 
-    @Column(nullable = false, length = 30)
-    private String correoPersonal;
+    @Column(name = "CORREO", nullable = false, length = 40)
+    private String correo;
 
-    @Column(nullable = false, length = 30)
-    private String correoInstitucional;
+    @JsonIgnore
+    @OneToMany(mappedBy = "estudiante")
+    private Set<ConvocatoriaEstudiante> convocatorias;
 
-    @Column(nullable = false, length = 10)
-    private long celular;
+    @JsonIgnore
+    @OneToMany(mappedBy = "estudiante")
+    private Set<ParticipacionEstudiante> participaciones;
 
 }

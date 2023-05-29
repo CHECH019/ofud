@@ -15,7 +15,7 @@ public class ServicioEstudianteImpl implements ServicioEstudiante{
     private final EmailServiceImpl emailSender;
 
     @Override
-    public Estudiante findEstudianteById(Long id) {
+    public Estudiante findEstudianteById(String id) {
         return dao.findById(id).orElseThrow();
     }
 
@@ -26,7 +26,7 @@ public class ServicioEstudianteImpl implements ServicioEstudiante{
 
     @Override
     public Estudiante saveEstudiante(Estudiante e) {
-        emailSender.sendSimpleMessage(e.getCorreoPersonal(), "Resgitro exitoso", "Se ha realizado su registro exitosamente! :)<3 ");
+        emailSender.sendSimpleMessage(e.getCorreo(), "Resgitro exitoso", "Se ha realizado su registro exitosamente! :)<3 ");
         System.out.println("Email enviado correctamente");
         
         return dao.save(e);
