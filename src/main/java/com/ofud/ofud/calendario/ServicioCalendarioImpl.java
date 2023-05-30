@@ -40,11 +40,8 @@ public class ServicioCalendarioImpl implements ServicioCalendario{
 
     @Override
     public Map<String, Boolean> checkState() {
-        
-        if(dao.actividadesPeriodoActual() == 0){
-            return Map.of("state", true);
-        }
-        if(dao.estadoPlaneacion() == "activo"){
+        System.out.println(dao.estadoPlaneacion());
+        if(dao.actividadesPeriodoActual() == 0 || dao.estadoPlaneacion() == "activo"){
             return Map.of("state", true);
         }
         return Map.of("state", false);
