@@ -32,4 +32,9 @@ public class ControladorCalendario{
     public Map<String,Boolean> validar(){
         return service.checkState();
     }
+
+    @GetMapping("/estadoplaneacion")
+    public Map<String,Boolean> estadoPlaneacion(){
+        return service.estadoPlaneacion();
+    }
 }

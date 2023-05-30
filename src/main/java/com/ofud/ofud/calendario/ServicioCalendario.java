@@ -9,4 +9,5 @@ public interface ServicioCalendario {
     public Calendario saveCalendario(Calendario c);
     public void terminarCalendario(Integer consec, String idObra, String idTipo);
     public Map<String,Boolean> checkState();
+    public Map<String, Boolean> estadoPlaneacion();
 }
