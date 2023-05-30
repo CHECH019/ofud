@@ -22,9 +22,8 @@ public class ControladorCalendario{
     }
 
     @PutMapping("/terminar")
-    public String terminarCalendario(@RequestParam int consec, @RequestParam String idObra, @RequestParam String idTipo){
+    public void terminarCalendario(@RequestParam int consec, @RequestParam String idObra, @RequestParam String idTipo){
         System.out.println(consec+" "+idObra+" "+idTipo);
         service.terminarCalendario(consec, idObra, idTipo);
-        return "updated";
     }
 }
