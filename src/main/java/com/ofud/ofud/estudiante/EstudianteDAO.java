@@ -3,7 +3,11 @@ package com.ofud.ofud.estudiante;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+
+import jakarta.transaction.Transactional;
 
 public interface EstudianteDAO extends JpaRepository<Estudiante,String>{
     
@@ -29,9 +33,8 @@ public interface EstudianteDAO extends JpaRepository<Estudiante,String>{
          "GROUP BY ce.idInstrumentofkc "+
         "UNION "+
         "select * from(SELECT ce.calificacion, ce.idInstrumentoFKC "+
-        "FROM convocatoriaestudiante ce, instrumento i, obra o, obrainstrumento oi "+
-         "WHERE ce.idInstrumentoFKC = i.idInstrumento "+
-            "AND ce.idObraFKC = o.idObra "+
+        "FROM convocatoriaestudiante ce, obra o "+
+         "WHERE ce.idObraFKC = o.idObra "+
             "AND o.idPeriodoFKO = '202301' "+
            "AND ce.idinstrumentofkc IN ( "+
              "SELECT oi.idinstrumentofkoi "+
@@ -39,7 +42,24 @@ public interface EstudianteDAO extends JpaRepository<Estudiante,String>{
              "WHERE o.idobra = oi.idobrafkoi "+
                "AND o.idperiodofko = '202301' "+
              "GROUP BY oi.idinstrumentofkoi "+
-             "HAVING COUNT(oi.idinstrumentofkoi) > 1 "+
-           ")) where rownum<=2)", nativeQuery = true)
+             "HAVING COUNT(oi.idinstrumentofkoi) > 1 ) "+
+           "order by ce.calificacion) where rownum<2)", nativeQuery = true)
     List<String[]> seleccionEstudiantes();
+
+    @Query("select o.idObra from Obra o where o.periodo.id = ?1")
+    int findObraIdByPeriodo(String idPeriodo);
+
+    @Query(value = "select consecalendario from calendario where idobrafkca=?1 and idTipoCalenFKC=3", nativeQuery = true)
+    int findCalendarioByObra(String idObra);
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert into participacionestudiante(consecasis,idobrafkca,idTipoCalenFKpe,consecalendariofkp,codestudiantefkp)"+ 
+    "values(PART_EST_SEQ.NEXTVAL,?1,3,?2,?3)", nativeQuery = true)
+    void saveParticipacionEstudiante(String obraId, String consec, String idEstudiante);
+
+    @Modifying
+    @Transactional
+    @Query(value="update calendario set idestadofkc='inactivo' where idtipocalenfkc=3 and idobrafkca=?1", nativeQuery = true)
+    void setSeleccionInactiva(String idObra);
 }
