@@ -21,13 +21,20 @@ public class ServicioCalendarioImpl implements ServicioCalendario{
         List<CalendarioDTO> calendarios = new ArrayList<>();
         dao.findAllCalendarios().forEach(
             t-> calendarios.add(
-                new CalendarioDTO(t[0],t[1],t[2],t[3],t[4])));
+                new CalendarioDTO(
+                    Integer.parseInt(t[0]),
+                    t[1],t[2],t[3],t[4],t[5],t[6],t[7])));
         return calendarios;
     }
 
     @Override
     public Calendario saveCalendario(Calendario c) {
         return dao.save(c);
+    }
+
+    @Override
+    public void terminarCalendario(Integer consec, String idObra, String idTipo) {
+        dao.terminarCalendario(consec, idObra, idTipo);
     }
     
 }

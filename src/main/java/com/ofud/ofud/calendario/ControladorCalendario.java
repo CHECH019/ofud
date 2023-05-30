@@ -3,7 +3,9 @@ package com.ofud.ofud.calendario;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -17,5 +19,12 @@ public class ControladorCalendario{
     @GetMapping({"/",""})
     public List<CalendarioDTO> getCalendarios(){
         return service.findAllCalendarios();
+    }
+
+    @PutMapping("/terminar")
+    public String terminarCalendario(@RequestParam int consec, @RequestParam String idObra, @RequestParam String idTipo){
+        System.out.println(consec+" "+idObra+" "+idTipo);
+        service.terminarCalendario(consec, idObra, idTipo);
+        return "updated";
     }
 }
