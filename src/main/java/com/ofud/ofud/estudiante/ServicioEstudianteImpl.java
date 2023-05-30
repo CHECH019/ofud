@@ -1,5 +1,6 @@
 package com.ofud.ofud.estudiante;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -30,6 +31,16 @@ public class ServicioEstudianteImpl implements ServicioEstudiante{
         System.out.println("Email enviado correctamente");
         
         return dao.save(e);
+    }
+
+    @Override
+    public List<EstudianteDTO> seleccionarEstudiantes() {
+        List<EstudianteDTO> estudianteSeleccionados = new ArrayList<>();
+        dao.seleccionEstudiantes().forEach(
+            t-> estudianteSeleccionados.add(
+                new EstudianteDTO(t[0], t[1], t[2], t[3], t[4], t[5])
+            ));
+        return estudianteSeleccionados;
     }
 
 }

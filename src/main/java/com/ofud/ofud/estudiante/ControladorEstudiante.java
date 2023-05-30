@@ -30,4 +30,9 @@ public class ControladorEstudiante {
     public Estudiante registro(@RequestBody Estudiante e){
         return service.saveEstudiante(e);
     }
+
+    @GetMapping("/seleccionar")
+    public List<EstudianteDTO> getEstudiantesSeleccionados(){
+        return service.seleccionarEstudiantes();
+    }
 }

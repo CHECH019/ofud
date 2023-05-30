@@ -6,5 +6,5 @@ public interface ServicioEstudiante {
     public Estudiante findEstudianteById(String id);
     public List<Estudiante> findAllEstudiantes();
     public Estudiante saveEstudiante(Estudiante e);
-    
+    public List<EstudianteDTO> seleccionarEstudiantes();
 }
