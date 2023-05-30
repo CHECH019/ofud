@@ -23,5 +23,13 @@ public interface CalendarioDAO extends JpaRepository<Calendario,CalendarioId>{
     " where consecalendario=?1 and idobrafkca=?2 and idtipocalenfkc = ?3", nativeQuery= true)
     void terminarCalendario(Integer consec, String idObra, String idTipo);
 
+    @Query(value = "select count(c.conseCalendario) from calendario c, obra o "+
+    "where o.idperiodoFKo='202301' and o.idobra=c.idobrafkca", nativeQuery = true)
+    int actividadesPeriodoActual();
+
+    @Query(value = "select r.idEstado from estado r, calendario c, tipoCalendario tp, Periodo p, obra o  "+
+    "where tp.idTipoCalen=c.idTipoCalenFKC and r.idEstado=c.idEstadoFKC and p.idperiodo=o.IDPERIODOFKO "+
+    "and c.IDOBRAFKCA=o.idobra and o.IDPERIODOFKO='202301' and c.idtipocalenfkc = 1", nativeQuery = true)
+    String estadoPlaneacion();
     
 }

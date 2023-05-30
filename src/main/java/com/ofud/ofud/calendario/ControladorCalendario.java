@@ -1,6 +1,7 @@
 package com.ofud.ofud.calendario;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,5 +26,10 @@ public class ControladorCalendario{
     public void terminarCalendario(@RequestParam int consec, @RequestParam String idObra, @RequestParam String idTipo){
         System.out.println(consec+" "+idObra+" "+idTipo);
         service.terminarCalendario(consec, idObra, idTipo);
+    }
+
+    @GetMapping("/validar")
+    public Map<String,String> validar(){
+        return service.checkState();
     }
 }

@@ -2,6 +2,7 @@ package com.ofud.ofud.calendario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,18 @@ public class ServicioCalendarioImpl implements ServicioCalendario{
     public void terminarCalendario(Integer consec, String idObra, String idTipo) {
         dao.terminarCalendario(consec, idObra, idTipo);
     }
+
+    @Override
+    public Map<String, String> checkState() {
+        
+        if(dao.actividadesPeriodoActual() == 0){
+            return Map.of("state", "enabled");
+        }else if(dao.estadoPlaneacion() == "activo"){
+            return Map.of("state", "enabled");
+        }
+        return Map.of("state", "disabled");
+    }
+
+    
     
 }
