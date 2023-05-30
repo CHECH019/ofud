@@ -29,7 +29,7 @@ public class ControladorCalendario{
     }
 
     @GetMapping("/validar")
-    public Map<String,String> validar(){
+    public Map<String,Boolean> validar(){
         return service.checkState();
     }
 }

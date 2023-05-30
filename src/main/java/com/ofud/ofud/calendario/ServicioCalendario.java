@@ -8,5 +8,5 @@ public interface ServicioCalendario {
     public List<CalendarioDTO> findAllCalendarios();
     public Calendario saveCalendario(Calendario c);
     public void terminarCalendario(Integer consec, String idObra, String idTipo);
-    public Map<String,String> checkState();
+    public Map<String,Boolean> checkState();
 }
