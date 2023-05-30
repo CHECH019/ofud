@@ -1,5 +1,6 @@
 package com.ofud.ofud.calendario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -16,8 +17,12 @@ public class ServicioCalendarioImpl implements ServicioCalendario{
     }
 
     @Override
-    public List<Calendario> findAllCalendarios() {
-        return dao.findAll();
+    public List<CalendarioDTO> findAllCalendarios() {
+        List<CalendarioDTO> calendarios = new ArrayList<>();
+        dao.findAllCalendarios().forEach(
+            t-> calendarios.add(
+                new CalendarioDTO(t[0],t[1],t[2],t[3],t[4])));
+        return calendarios;
     }
 
     @Override
