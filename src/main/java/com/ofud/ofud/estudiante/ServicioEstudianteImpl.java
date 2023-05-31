@@ -1,7 +1,9 @@
 package com.ofud.ofud.estudiante;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -67,5 +69,17 @@ public class ServicioEstudianteImpl implements ServicioEstudiante{
     @Override
     public void marcarAsistencia(String idObra, String consec, List<String> codsEstudiante) {
         codsEstudiante.forEach(t->dao.asistencia(t, idObra, consec));
+    }
+
+    @Override
+    public Map<String, String> findViaticos() {
+        Map<String,String> estudiantes = new HashMap<>();
+        dao.viaticos().forEach(t->{
+            estudiantes.put("codigo", t[0]);
+            estudiantes.put("nombre", t[1]);
+            estudiantes.put("apellido", t[2]);
+            estudiantes.put("horas_totales", t[3]);
+        });
+        return estudiantes;
     }
 }

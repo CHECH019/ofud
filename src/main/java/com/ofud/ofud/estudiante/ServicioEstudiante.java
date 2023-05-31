@@ -1,6 +1,7 @@
 package com.ofud.ofud.estudiante;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ServicioEstudiante {
     public Estudiante findEstudianteById(String id);
@@ -10,4 +11,5 @@ public interface ServicioEstudiante {
     public void saveSeleccionado(String codEstudiante);
     public List<EstudianteDTO> findSeleccionados();
     public void marcarAsistencia(String idObra, String consec, List<String> codsEstudiante);
+    public Map<String,String> findViaticos();
 }

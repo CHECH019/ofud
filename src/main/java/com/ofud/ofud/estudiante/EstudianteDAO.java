@@ -82,4 +82,16 @@ public interface EstudianteDAO extends JpaRepository<Estudiante,String>{
     "(consecasis,idobrafkca,idTipoCalenFKpe,consecalendariofkp,codestudiantefkp)"+ 
     " values(PART_EST_SEQ.NEXTVAL,?2,4,?3,?1)", nativeQuery = true)
     void asistencia(String codEstudiante, String idObra, String consec);
+
+    @Query(value = "select e.codestudiante, e.nombre, e.apellido, sum(ROUND((fechafin - fechainicio) * 24))  horas_totales "+
+    "from estudiante e, participacionestudiante pe, calendario c "+
+    "where e.codestudiante=pe.codestudiantefkp and c.consecalendario=pe.consecalendariofkp "+
+    "and pe.idtipocalenfkpe=c.idtipocalenfkc and c.idobrafkca=pe.idobrafkca "+
+    "group by e.codestudiante,  e.nombre, e.apellido", nativeQuery = true)
+    List<String[]> viaticos();
+
+    @Modifying
+    @Transactional
+    @Query(value = "update calendario set idestadofkc='inactivo' where idtipocalenfkc=3 or idtipocalenfkc=4 or idtipocalenfkc=5 orand idobrafkca=1", nativeQuery = true)
+    void setCalendariosInactivos();
 }
