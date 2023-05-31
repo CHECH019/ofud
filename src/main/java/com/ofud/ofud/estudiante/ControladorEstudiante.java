@@ -45,4 +45,9 @@ public class ControladorEstudiante {
     public void marcarAsistencia(@RequestBody AsistenciaRequest req){
         service.marcarAsistencia(req.idObra(), req.consec(), req.codsEstudiante());
     }
+
+    @GetMapping("/email")
+    public void sendEmail(){
+        service.sendMailElectivas();
+    }
 }

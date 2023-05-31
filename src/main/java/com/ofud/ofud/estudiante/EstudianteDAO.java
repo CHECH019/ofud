@@ -92,6 +92,26 @@ public interface EstudianteDAO extends JpaRepository<Estudiante,String>{
 
     @Modifying
     @Transactional
-    @Query(value = "update calendario set idestadofkc='inactivo' where idtipocalenfkc=3 or idtipocalenfkc=4 or idtipocalenfkc=5 orand idobrafkca=1", nativeQuery = true)
+    @Query(value = "update calendario set idestadofkc='inactivo' where idtipocalenfkc=3 or idtipocalenfkc=4 or idtipocalenfkc=5 and idobrafkca=1", nativeQuery = true)
     void setCalendariosInactivos();
+
+    @Query(value="SELECT e.codestudiante, e.nombre, e.apellido, u.nomunidad, "+
+    "SUM(ROUND((fechafin - fechainicio) * 24)) AS horas_totales, "+
+    "horas.horas_totales horas_necesarias, e.correo "+
+    "FROM estudiante e, participacionestudiante pe, calendario c, unidad u, "+
+    "(SELECT SUM(ROUND((fechafin - fechainicio) * 24)) AS horas_totales "+
+    "FROM calendario c "+
+    "WHERE c.idTipoCalenfkc = 4 OR c.idTipoCalenfkc = 5) horas "+
+    "WHERE e.codestudiante = pe.codestudiantefkp "+
+        "AND c.consecalendario = pe.consecalendariofkp "+
+        "AND pe.idtipocalenfkpe = c.idtipocalenfkc "+
+        "AND c.idobrafkca = pe.idobrafkca "+
+        "AND u.codunidad=e.codunidadfke "+
+    "GROUP BY e.codestudiante, e.nombre, e.apellido, horas.horas_totales, e.correo, u.nomunidad", nativeQuery = true)
+    List<String[]> estudianteElectivas();
+
+    @Query(value = "select distinct e.codestudiante, e.nombre, e.apellido, un.nomunidad facultad, e.correo "+
+    "from estudiante e, unidad u, unidad un, participacionestudiante pe "+
+    "where e.codestudiante=pe.codestudiantefkp and u.codunidad=un.uni_codunidad", nativeQuery = true)
+    List<String[]> estudiantesCorreo();
 }
