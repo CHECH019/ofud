@@ -37,4 +37,10 @@ public class ControladorCalendario{
     public Map<String,Boolean> estadoPlaneacion(){
         return service.estadoPlaneacion();
     }
+
+    @GetMapping("/ensayo")
+    public Map<String,String> ensayo(@RequestParam String date){        
+        return service.findEnsayoByDate(date);
+    }
+
 }

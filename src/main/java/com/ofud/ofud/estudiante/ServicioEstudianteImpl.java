@@ -35,16 +35,7 @@ public class ServicioEstudianteImpl implements ServicioEstudiante{
 
     @Override
     public List<EstudianteDTO> seleccionarEstudiantes() {
-        List<EstudianteDTO> estudiantesSeleccionados = new ArrayList<>();
-        dao.seleccionEstudiantes().forEach(
-            t-> {
-                estudiantesSeleccionados.add(
-                    new EstudianteDTO(t[0], t[1], t[2], t[3], t[4], t[5])
-                );
-                saveSeleccionado(t[0]);
-
-        });
-        return estudiantesSeleccionados;
+        return mapearQueryResulttoDTO(dao.seleccionEstudiantes());
     }
 
     @Override
@@ -54,6 +45,22 @@ public class ServicioEstudianteImpl implements ServicioEstudiante{
         dao.saveParticipacionEstudiante(obra+"", consec+"", codEstudiante);
         dao.setSeleccionInactiva(obra+"");
     }
+
+    @Override
+    public List<EstudianteDTO> findSeleccionados(){
+        return mapearQueryResulttoDTO(dao.findSeleccionados());
+    }
     
-    
+    private List<EstudianteDTO> mapearQueryResulttoDTO(List<String[]> estudiantes){
+        List<EstudianteDTO> estudiantesDTO = new ArrayList<>();
+        estudiantes.forEach(
+            t-> {
+                estudiantesDTO.add(
+                    new EstudianteDTO(t[0], t[1], t[2], t[3], t[4], t[5])
+                );
+                saveSeleccionado(t[0]);
+
+        });
+        return estudiantesDTO;
+    }
 }

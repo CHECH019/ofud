@@ -1,6 +1,7 @@
 package com.ofud.ofud.calendario;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,20 @@ public class ServicioCalendarioImpl implements ServicioCalendario{
             return Map.of("state", true);
         }
         return Map.of("state", false);
+    }
+
+    @Override
+    public Map<String, String> findEnsayoByDate(String date) {
+        Map<String,String> ensayosMap = new HashMap<>();
+        
+        dao.findEnsayoByDate(date).forEach(
+            t-> {
+                ensayosMap.put("consec", t[0]);
+                ensayosMap.put("idObra", t[1]);
+                ensayosMap.put("idTipoCal", t[2]);
+            }
+        );
+        return ensayosMap;
     }
     
 }

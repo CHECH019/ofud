@@ -8,4 +8,5 @@ public interface ServicioEstudiante {
     public Estudiante saveEstudiante(Estudiante e);
     public List<EstudianteDTO> seleccionarEstudiantes();
     public void saveSeleccionado(String codEstudiante);
+    public List<EstudianteDTO> findSeleccionados();
 }

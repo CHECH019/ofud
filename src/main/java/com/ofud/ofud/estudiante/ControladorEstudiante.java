@@ -32,7 +32,12 @@ public class ControladorEstudiante {
     }
 
     @GetMapping("/seleccionar")
-    public List<EstudianteDTO> getEstudiantesSeleccionados(){
+    public List<EstudianteDTO> seleccionar(){
         return service.seleccionarEstudiantes();
+    }
+
+    @GetMapping("/seleccionados")
+    public List<EstudianteDTO> getEstudiantesSeleccionados(){
+        return service.findSeleccionados();
     }
 }

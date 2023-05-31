@@ -62,4 +62,17 @@ public interface EstudianteDAO extends JpaRepository<Estudiante,String>{
     @Transactional
     @Query(value="update calendario set idestadofkc='inactivo' where idtipocalenfkc=3 and idobrafkca=?1", nativeQuery = true)
     void setSeleccionInactiva(String idObra);
+
+    @Query(value="SELECT distinct e.codestudiante AS codigo, e.nombre AS nombre, e.apellido AS apellido,"+
+    " u.nomunidad AS proyecto, un.nomunidad AS facultad, i.nominstrumento AS instrumento "+
+    "FROM estudiante e, unidad u, unidad un, instrumento i, convocatoriaestudiante ce "+
+     "WHERE e.codunidadfke = u.codunidad "+
+        "AND un.codunidad = u.uni_codunidad "+
+        "and ce.idinstrumentofkc=i.idinstrumento "+
+        "and ce.codestudiantefkc=e.codestudiante " +
+         "AND e.codestudiante in "+
+         "(select distinct pe.codestudiantefkp " +
+         "from participacionestudiante pe, obra o" +
+         " where pe.idtipocalenfkpe=3 and o.idobra=pe.idobrafkca and o.idperiodoFKo='202301')",nativeQuery = true)
+    List<String[]> findSeleccionados();
 }

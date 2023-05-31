@@ -10,4 +10,5 @@ public interface ServicioCalendario {
     public void terminarCalendario(Integer consec, String idObra, String idTipo);
     public Map<String,Boolean> checkState();
     public Map<String, Boolean> estadoPlaneacion();
+    public Map<String,String> findEnsayoByDate(String date);
 }

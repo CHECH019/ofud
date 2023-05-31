@@ -31,5 +31,11 @@ public interface CalendarioDAO extends JpaRepository<Calendario,CalendarioId>{
     "where tp.idTipoCalen=c.idTipoCalenFKC and r.idEstado=c.idEstadoFKC and p.idperiodo=o.IDPERIODOFKO "+
     "and c.IDOBRAFKCA=o.idobra and o.IDPERIODOFKO='202301' and c.idtipocalenfkc = 1", nativeQuery = true)
     String estadoPlaneacion();
+
+    @Query(value = "select c.consecalendario, idobrafkca, idtipocalenfkc "+
+    "from calendario c "+
+    "where c.idTipoCalenFKC=4 and c.fechainicio<to_date(?1, 'YYYY-MM-DD HH24:MI:SS') " +
+    "and c.fechafin>to_date(?1, 'YYYY-MM-DD HH24:MI:SS')", nativeQuery = true)
+    List<String[]> findEnsayoByDate(String date);
     
 }
