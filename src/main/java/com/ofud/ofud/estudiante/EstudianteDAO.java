@@ -80,6 +80,6 @@ public interface EstudianteDAO extends JpaRepository<Estudiante,String>{
     @Transactional
     @Query(value = "insert into participacionestudiante"+
     "(consecasis,idobrafkca,idTipoCalenFKpe,consecalendariofkp,codestudiantefkp)"+ 
-    " values(PART_EST_SEQ.NEXTVAL,?2,4,?3,?1)")
+    " values(PART_EST_SEQ.NEXTVAL,?2,4,?3,?1)", nativeQuery = true)
     void asistencia(String codEstudiante, String idObra, String consec);
 }

@@ -42,9 +42,7 @@ public class ControladorEstudiante {
     }
 
     @PostMapping("/asistencia")
-    public void marcarAsistencia(@RequestBody String idObra, 
-                    @RequestBody String consec, 
-                    @RequestBody List<String> codsEstudiante){
-        service.marcarAsistencia(idObra, consec, codsEstudiante);
+    public void marcarAsistencia(@RequestBody AsistenciaRequest req){
+        service.marcarAsistencia(req.idObra(), req.consec(), req.codsEstudiante());
     }
 }
