@@ -75,4 +75,11 @@ public interface EstudianteDAO extends JpaRepository<Estudiante,String>{
          "from participacionestudiante pe, obra o" +
          " where pe.idtipocalenfkpe=3 and o.idobra=pe.idobrafkca and o.idperiodoFKo='202301')",nativeQuery = true)
     List<String[]> findSeleccionados();
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert into participacionestudiante"+
+    "(consecasis,idobrafkca,idTipoCalenFKpe,consecalendariofkp,codestudiantefkp)"+ 
+    " values(PART_EST_SEQ.NEXTVAL,?2,4,?3,?1)")
+    void asistencia(String codEstudiante, String idObra, String consec);
 }

@@ -40,4 +40,11 @@ public class ControladorEstudiante {
     public List<EstudianteDTO> getEstudiantesSeleccionados(){
         return service.findSeleccionados();
     }
+
+    @PostMapping("/asistencia")
+    public void marcarAsistencia(@RequestBody String idObra, 
+                    @RequestBody String consec, 
+                    @RequestBody List<String> codsEstudiante){
+        service.marcarAsistencia(idObra, consec, codsEstudiante);
+    }
 }

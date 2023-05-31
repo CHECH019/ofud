@@ -63,4 +63,9 @@ public class ServicioEstudianteImpl implements ServicioEstudiante{
         });
         return estudiantesDTO;
     }
+
+    @Override
+    public void marcarAsistencia(String idObra, String consec, List<String> codsEstudiante) {
+        codsEstudiante.forEach(t->dao.asistencia(t, idObra, consec));
+    }
 }
