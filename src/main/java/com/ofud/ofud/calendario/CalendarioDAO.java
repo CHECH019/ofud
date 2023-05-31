@@ -37,5 +37,9 @@ public interface CalendarioDAO extends JpaRepository<Calendario,CalendarioId>{
     "where c.idTipoCalenFKC=4 and c.fechainicio<to_date(?1, 'YYYY-MM-DD HH24:MI:SS') " +
     "and c.fechafin>to_date(?1, 'YYYY-MM-DD HH24:MI:SS')", nativeQuery = true)
     List<String[]> findEnsayoByDate(String date);
+
+    @Query(value = "select count(conseCalendario) from calendario"+
+    " where fechafin>to_date(?1, 'YYYY-MM-DD HH24:MI:SS')", nativeQuery = true)
+    int calendariosDespuesDe(String date);
     
 }

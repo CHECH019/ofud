@@ -11,4 +11,5 @@ public interface ServicioCalendario {
     public Map<String,Boolean> checkState();
     public Map<String, Boolean> estadoPlaneacion();
     public Map<String,String> findEnsayoByDate(String date);
+    public Map<String,Integer> calendariosDespuesDe(String date);
 }

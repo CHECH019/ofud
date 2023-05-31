@@ -68,5 +68,10 @@ public class ServicioCalendarioImpl implements ServicioCalendario{
         );
         return ensayosMap;
     }
+
+    @Override
+    public Map<String,Integer> calendariosDespuesDe(String date) {
+        return Map.of("count",dao.calendariosDespuesDe(date));
+    }
     
 }

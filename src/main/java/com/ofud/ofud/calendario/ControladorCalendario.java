@@ -43,4 +43,8 @@ public class ControladorCalendario{
         return service.findEnsayoByDate(date);
     }
 
+    @GetMapping("/count")
+    public Map<String,Integer> count(@RequestParam String date){        
+        return service.calendariosDespuesDe(date);
+    }
 }
